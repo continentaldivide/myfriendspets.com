@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: auto;
+            }
+            body {
+                margin: 0;
+                font-family: Arial;
+                background-color: #d8e0e6;
+            }
+            h1 {
+                margin-top: 52px;
+                text-align: center;
+            }
+            p,h3 {
+                padding: 20px;
+                max-width: 70%;
+                text-align: justify;
+                line-height: 1.5em;
+            }
+            
+        </style>
+    </head>
+    
+    <body>
+        <h1>design blog</h1>
+        <h3>4/17:</h3>
+        <p><strong>what I did:</strong>
+        <br><br>
+        Looks like SSL cert is active!  <em>nice.</em>  Added rule to force port 80 traffic to https.  For about two minutes, all port 80 traffic with the destination myfriendspets.com was redirected to https://www.example.com.  So, you know -- <em>that</em> happened.  Discovered that apparently with my provider's implementation of cpanel, Options -Indexes can be added to htaccess files -- which is really neat, but would have been nice to learn last night instead of thinking this could only be done in an httpd file and, thus, configuring it via provider's gui instead.  Actually: just discovered that apparently putting this command in htaccess requires a certain allowoverride options configuration somewhere else, so in all likelihood, the way I did it yesterday is mandatory for my provider.  Ah well -- I know how to do it three different ways now.
+        <br><br>
+        exif is the bane of my existence.  just trying to figure out how to deal with this rotation problem.  downloaded one app that seemed to be doing something, but not following my expectations.  Started looking into another app and wondered whether I can just let my code deal with exif instead of all this nonsense.  turns out I can!  found a cool piece of CSS in MDN web docs: image-orientation: from-image.  and, sure enough, this works!...in firefox.  tested in chrome, does nothing.  so, back to square one.  started thinking about the app I started with and realized it was working, I was simply misunderstanding the behavior: when I stripped the exif rotation, the image still looked wrong but it had <em>already been wrong</em> and now Windows was just presenting it without the exif.  rotate, boom fixed.  resolving this took longer than I'd hoped for but ultimately I'm left with a quick and straightforward solution for stripping exif rotation, so I'm not complaining.
+        <br><br>
+        with the rotation issue sorted, I was free to move onto stripping the rest of the metadata, which can be done easily in Windows.  beginning to develop a workflow: save received images in "raw" folder, make a copy, move to "stripped of metadata" folder, rename.  soon, will add "resize for thumbnail" step to this process.  Probably want to add "confirm no exif rotation" at the start of the workflow too.  would love to one day automate as much of this as possible; probably going to kick that particular can down the road from here to california.  replaced previously-hosted images with scrubbed images.  re-enabled gallery page.
+        <br><br>
+        one friend/user pointed out that having a click-to-enter-the-site index page is hilariously 2005, so as much as I love that specific picture, the index has got to go.  thinking this through: don't really want to rename gallery to index: what if folks try to navigate to gallery.html and get a 404?  did some research on this; turns out you can change the landing page of the domain using the DirectoryAccess command in the htaccess file.  COOL!
+        <br><br>
+        was going to call it a night here, but really wanted to go ahead and get the resizing done so that page load times aren't oppressive before I start soliciting more pictures.  goofed around with image resizer powertoy; works like a dream for batch-resizing down to a given max width.  picking 600 and making my peace with the fact that the site is not going to look good at resolutions above 2400 by X.  oh well. <!--¯\_(ツ)_/¯--> tricky thing is that, ideally, I'd like to rename the files slightly rather than try and keep track of identical image names in a "gallery size" folder.  took a little poking around but looks like the powerrename powertoy can support appending via use of regex, so that's pretty cool.  very lightweight but very powerful tool.  uploaded renamed and resized images.  fun fact: the biggest delta in image size was one that was reduced to 1/40th of the full file size.  cool right?  changed &lt;img&gt; pulls to grab the gallery-size images.  removed disclaimer about image size.  added href mailto link.  moved some text on this page to header tags for readability.
+        <br><br>
+        probably not going to do a ton of work on the site over the weekend; I have to finish FFVII Remake and, obviously, that's pretty important.
+        <br><br>
+        <strong>features I'd like to add:</strong>
+        <br><br>
+        eventually this page should have some kind of a future work / future features checklist so that that data isn't spread across the various days' posts.  need a favicon.  thinking about commissioning a nice one.  like, pixel art of a cat or something.</p>
+        
+        <h3>4/16:</h3>
+        <p><strong>what I did:</strong>
+        <br><br>
+        changed gallery to two-column temporarily to avoid the impression that the duplicated images are a glitch.  started getting organized with onedrive for easy shared cloud access of pictures between devices.  downloaded/uploaded new submissions.  wrote blog entry for yesterday's work.  created some barebones style for this page so looking at it doesn't burn my eyes.  checking gallery I created last year to see how I handled resizing images.  apparently I was super lazy and let the pictures load in the gallery at the same size I provided on clickthrough.  I should be jailed for that.  thinking about how to best handle resizing systematically: perhaps resize to certain pixel value in width dimension?  tried three columns to see how it looks compared to four -- pleased with the result.  turned out to be a problem for relatively low-res photos though.  really torn between switching back to four columns or just dealing with the low res picture.  ultimately four columns is PROBABLY the better option; will make the page load faster.  switched back to four columns.  added today's new pictures.  created test page so I'm not hacking together changes on a page someone might actually be browsing at that time (after today >_>).  one of these pictures is rotated 90 degrees left but ONLY on the gallery page.  WHAT.  WHY.  click through and it's fine.  thought this might be an exif data issue.  hadn't really thought about metadata security.  checked and found a photo with gps information.  crap.  don't have time to fix this right now so I'm going to take the page down for a day and upload clean images tomorrow.  learned how to disable indexing for some increased security.
+        <br><br>
+        <strong>things I need to fix:</strong>
+        <br><br>
+        test page is security by obscurity right now; need to investigate how to set 403 on certain pages/paths.  need to strip all exif data from pictures submitted so far and reupload.  need to implement some kind of version control.</p>
+        
+        <h3>4/15:</h3>
+        <p><strong>what I did:</strong>
+        <br><br>
+        received some pictures.  devised initial file naming nomenclature (will probably need to revise this later).  hosted photos.  shopped around for some gallery designs.  picked a very basic responsive flexbox design to start with just to get a gallery published as quickly as possible.  had an issue with columns not presenting properly; only had three columns taking up 75% of the page.  realized this was because I'd neglected to set box-sizing: border-box in CSS.  (what is this, amateur hour?)  played around a little bit to make sure images of various size were going to fit properly.  didn't have enough photos yet (7) to get the visual language of the gallery working properly so duplicated images as a placeholder.  created this page.  set gallery images as links to full-size photos.  made index page image link to gallery but this is sort of broken right now by responsive code.
+        <br><br>
+        <strong>things I need to fix:</strong>
+        <br><br>
+        CSS is a mess; I threw a bunch of style into HTML just to publish as fast as possible.  need to organize all CSS.  &lt;head&gt; tags are a nightmare, need to fix this too and add doctype/meta/title tags.  need to create some rudimentary visual style for both pages.  need to develop index page and fix the weird ahref behavior.  need to resize gallery images ASAP.  make gallery page into index page for "gallery" path?  SSL cert is STILL pending; looks like it's not broken at least.  need to force https once that goes through.
+        <br><br>
+        <strong>features I'd like to add:</strong>
+        <br><br>
+        add pet info (names, maybe more?).  hover effects on photos.  random "pet of the day" pic?  some sort of randomization of gallery (per load?  per week?  HTML?  js?).  gallery per pet?  photo captions?  add page-per-pic with more info, maybe "previous/random/next" links?  maybe with that implementation can do "show me more of this pet" (random)?  is gallery infinite scroll or does it have pages?</p>
+        
+        <h3>4/14:</h3>
+        <p><strong>what I did:</strong>
+        <br><br>
+        bought the domain.  organized hosting.  configured tons of dns records for this and another domain.  configured distribution list for incoming mail to organize submissions properly in mailbox.  tried to get ssl certificate to go through.  cried when it didn't.  created basic index page.  did some research on basic responsive design.  successfully implemented basic RWD on index page.</p>
+    </body>
+    
+    <!-- sorry, uh -- there's just not a lot here to see right now. -->
+</html>
