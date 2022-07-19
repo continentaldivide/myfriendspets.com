@@ -1,3 +1,3 @@
 {
-  "rewrites": [{ "source": "/index.html", "destination": "/gallery.html" }]
+  "rewrites": [{ "source": "myfriendspets-com.vercel.app", "destination": "/gallery.html" }]
 }
