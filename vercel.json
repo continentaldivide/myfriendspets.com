@@ -1,3 +1,3 @@
 {
-  "rewrites": [{ "source": "myfriendspets-com.vercel.app", "destination": "/gallery.html" }]
+  "redirects": [{ "source": "myfriendspets-com.vercel.app", "destination": "/gallery.html" }]
 }
