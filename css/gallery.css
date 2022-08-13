@@ -31,9 +31,8 @@ body {
   padding: 0 4px;
 }
 
-
 /* medium screen */
-@media screen and (max-width: 1050px)  {
+@media screen and (max-width: 1050px) {
   .column {
     flex: 50%;
     max-width: 50%;
